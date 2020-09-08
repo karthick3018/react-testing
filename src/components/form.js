@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {Redirect} from 'react-router'
 import {formReturnActualDataApi} from '../api';
 
 const FormComponent = () => {
@@ -11,21 +12,25 @@ const FormComponent = () => {
   const handleChange = (e) => {
     setState({...state,[e.target.name]:e.target.value})
   }
-  const handleSubmit = async() => {
+  const handleSubmit = async(e) => {
+    e.preventDefault()
     let resultFromApi = await formReturnActualDataApi(state);
     setResult(resultFromApi?.data);
+    if(resultFromApi?.data){
+      return <Redirect to="/"/>
+   }
   }
   return(
-    <div>
+    <form onSubmit={handleSubmit}>
       <input name="name" data-testid="name" value={state?.name} onChange={handleChange}/>
       <input name="age" data-testid="age" value={state?.age} onChange={handleChange}/>
-      <button type="submit" onClick={handleSubmit}>Submit</button>
+      <button type="submit">Submit</button>
 
      <div>
       <p data-testid="result-name">{result?.name}</p>
       <p data-testid="result-age">{result?.age}</p>
     </div> 
-   </div>
+   </form>
   )
 }
 

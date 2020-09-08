@@ -1,20 +1,33 @@
 import React from 'react';
-import FormComponent from '../components/form';
+import {Redirect as MockRedirect} from 'react-router'
 import { render,fireEvent,wait } from '@testing-library/react';
-import {formReturnActualDataApi as mockFormApi} from '../api'
 import '@testing-library/jest-dom/extend-expect'
+import FormComponent from '../components/form';
+import {formReturnActualDataApi as mockFormApi} from '../api'
 
 jest.mock('../api')
+
+jest.mock('react-router', () => {
+  return {
+    Redirect: jest.fn(() => null),
+  }
+})
+
+afterEach(() => {
+  jest.clearAllMocks()
+})
 
 
 test('form submit',async()=>{
   const state = {name:'karthick',age:"24"}
   mockFormApi.mockResolvedValueOnce({data:  state})
+  
   const {getByText,getByTestId,debug,getByLabelText} = render(<FormComponent/>)
   const nameInput = getByTestId('name');
-  const age = getByTestId('age');
+  const ageInput = getByTestId('age');
+
   fireEvent.change(nameInput,{target:{value:state.name}})
-  fireEvent.change(age,{target:{value:state.age}})
+  fireEvent.change(ageInput,{target:{value:state.age}})
 
   fireEvent.click(getByText(/submit/i))
 
@@ -22,8 +35,10 @@ test('form submit',async()=>{
   expect(mockFormApi).toHaveBeenCalledTimes(1)
 
   await wait(() =>
-    expect(getByTestId('result-name')).toHaveTextContent(state.name),
-    // expect(getByTestId('result-age')).toHaveTextContent(state.age)
-  )
+     expect(getByTestId('result-name')).toHaveTextContent(state.name) // having one fn inside reduces the execution time
+    ) 
+    expect(getByTestId('result-age')).toHaveTextContent(state.age)
+
+
 
 })
