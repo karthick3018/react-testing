@@ -7,8 +7,9 @@ const FormComponent = () => {
     name:'',
     age:''
   })
-  const [result ,setResult] = useState(null)
-
+  const [result ,setResult] = useState(null);
+  const [resultBool ,setResultBool] = useState(false);
+  
   const handleChange = (e) => {
     setState({...state,[e.target.name]:e.target.value})
   }
@@ -16,10 +17,13 @@ const FormComponent = () => {
     e.preventDefault()
     let resultFromApi = await formReturnActualDataApi(state);
     setResult(resultFromApi?.data);
-    if(resultFromApi?.data){
-      return <Redirect to="/"/>
-   }
+    // setResultBool(true)
   }
+
+  if(resultBool){
+    return <Redirect to="/"/>
+  }
+
   return(
     <form onSubmit={handleSubmit}>
       <input name="name" data-testid="name" value={state?.name} onChange={handleChange}/>

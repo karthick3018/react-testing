@@ -22,7 +22,7 @@ test('form submit',async()=>{
   const state = {name:'karthick',age:"24"}
   mockFormApi.mockResolvedValueOnce({data:  state})
   
-  const {getByText,getByTestId,debug,getByLabelText} = render(<FormComponent/>)
+  const {getByText,getByTestId} = render(<FormComponent/>)
   const nameInput = getByTestId('name');
   const ageInput = getByTestId('age');
 
@@ -32,13 +32,12 @@ test('form submit',async()=>{
   fireEvent.click(getByText(/submit/i))
 
   expect(mockFormApi).toHaveBeenCalledWith(state)
-  expect(mockFormApi).toHaveBeenCalledTimes(1)
 
-  await wait(() =>
-     expect(getByTestId('result-name')).toHaveTextContent(state.name) // having one fn inside reduces the execution time
-    ) 
-    expect(getByTestId('result-age')).toHaveTextContent(state.age)
+  await wait(() => expect(getByTestId('result-name')).toHaveTextContent(state.name)) // having one fn inside reduces the execution time
+  
+  expect(getByTestId('result-age')).toHaveTextContent(state.age)
 
+    // await wait(() => expect(MockRedirect).toHaveBeenCalledWith({to: '/'}, {}))
 
 
 })
