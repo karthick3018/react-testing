@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from '@testing-library/react';
-import {addTwoNumbers,returnTheArray}  from '../components/function';
+import {addTwoNumbers,returnTheArray,returnTheObject}  from '../components/function';
 
 test('check sum of two numbers',()=>{
   let result;
@@ -13,7 +13,13 @@ test('check sum of two numbers',()=>{
 })
 
 test('check two array',()=>{
-   let result,temp=[{id:1,name:'karthick',id:2,name:'raja'}] ;
-    result = returnTheArray();
-    expect(temp).toEqual(expect.arrayContaining(result));
+  let result,temp=[{id:1,name:'karthick',id:2,name:'raja'}] ;
+  result = returnTheArray();
+  expect(temp).toEqual(expect.arrayContaining(result));
+})
+
+test('check object value',()=>{
+  let result,temp={id:3,name:'jhony'};
+  result = returnTheObject();
+  expect(temp).toEqual(expect.objectContaining(result));
 })
