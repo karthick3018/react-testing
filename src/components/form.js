@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {Redirect} from 'react-router'
-import {formReturnActualDataApi} from '../api';
+import {formReturnActualDataApi} from '../api/index';
 
 const FormComponent = () => {
   const [state,setState] = useState({

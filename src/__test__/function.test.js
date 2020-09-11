@@ -1,6 +1,13 @@
 import React from 'react';
 import {render} from '@testing-library/react';
 import {addTwoNumbers,returnTheObject,filterFunction}  from '../components/function';
+import {getRequestApi as mockGetApi} from '../api';
+
+jest.mock('../api')
+
+afterEach(() => {
+  jest.clearAllMocks()
+})
 
 test('check sum of two numbers',()=>{
   let result;
@@ -22,4 +29,9 @@ test('filter function, array compare',()=>{
   let result,temp=[{id:1,name:'karthick',id:3,name:'jhony',id:4,name:'hellen'}];
   result = filterFunction();
   expect(temp).toEqual(expect.arrayContaining(result));
+})
+
+test('test a get api',()=>{
+  mockGetApi.mockResolvedValueOnce({data:  'Success'})
+
 })
