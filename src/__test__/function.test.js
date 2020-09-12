@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from '@testing-library/react';
-import {addTwoNumbers,returnTheObject,filterFunction}  from '../components/function';
+import {addTwoNumbers,returnTheObject,filterFunction,asyncFunction}  from '../components/function';
 import {getRequestApi as mockGetApi} from '../api';
 
 jest.mock('../api')
@@ -33,5 +33,9 @@ test('filter function, array compare',()=>{
 
 test('test a get api',()=>{
   mockGetApi.mockResolvedValueOnce({data:  'Success'})
+})
 
+test('a async function with setTimeOut',async()=>{
+  let result = await asyncFunction();
+  expect(result).toBe('resolved')
 })

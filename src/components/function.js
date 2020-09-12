@@ -12,3 +12,16 @@ export const filterFunction = () => {
   arrayValue.filter(eachValue=>eachValue.id!==2)
   return arrayValue
 }
+
+const resolvedAfterSeconds = () => {
+  return new Promise((resolve)=>{
+    setTimeout(function() {
+      resolve("resolved")
+    }, 2000)
+  })
+}
+
+export const asyncFunction = async()=>{
+  let result = await resolvedAfterSeconds();
+  return result
+}

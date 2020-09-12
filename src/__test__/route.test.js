@@ -17,7 +17,7 @@ test ('render the routes',()=>{
   expect(getByRole('heading')).toHaveTextContent(/First/i)
 })
 
-test('route to a page using history', () => {
+it('route to a page using history', () => {
   const history = createMemoryHistory()
   history.push(`/page1`)
   const { getByRole } = render(
