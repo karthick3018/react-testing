@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history'
 import Routes from '../components/routes';
 
 
-test ('render the routes',()=>{
+it ('render the routes',()=>{
   const {getByRole,getByText} = render(
     <ReactRouter>
       <Routes/>
