@@ -19,7 +19,7 @@ test ('check input type', ()=> {
   expect(div.querySelector('input')).toHaveAttribute('type', 'number')
 })
 
-test ('check input type by id',()=>{
+it ('checks input type by id',()=>{
   const { getByTestId } = render(<InputBox />);
   const input = getByTestId('number-test')
   expect(input.type).toBe('number')
