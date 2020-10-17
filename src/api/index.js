@@ -18,7 +18,7 @@ export const getRequestApi = () =>{
       response = result
     },
     (error) => {
-      console.log('error occurred',error)
+      console.log('error occurred in get api',error)
     }
   )
   return response
